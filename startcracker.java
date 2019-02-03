@@ -8,8 +8,8 @@ public class startcracker {
 		String p1Name = "";
 		String c2Name = "";
 		String outputName = "";
-		String c1IV = "";
-		String c2IV = "";
+		int c1IV = '0';
+		int c2IV = '0';
 		
 		//Get input settings
 		try {
@@ -19,13 +19,13 @@ public class startcracker {
 			c2Name = args[3];
 			outputName = args[4];
 		} catch (Exception e) {
-			System.out.println("Not enough input arguments");
+			System.out.println("Not enough or invalid input arguments");
 			System.exit(0);
 		}
 		
 		try{
-			c1IV = args[5];
-			c2IV = args[6];
+			c1IV = Integer.parseInt(args[5]);
+			c2IV = Integer.parseInt(args[6]);
 		} catch (Exception e) {
 			
 			if (!cipherMode.equals("ECB")) {
@@ -34,12 +34,16 @@ public class startcracker {
 			}
 		}
 		
+		//Start using the correct mode
 		if (cipherMode.equals("ECB")) {
 			
 			ecbcracker cracker = new ecbcracker();
 			cracker.start(c1Name, p1Name, c2Name, outputName);
 			
 		} else if (cipherMode.equals("CBC")) {
+			
+			cbccracker cracker = new cbccracker();
+			cracker.start(c1Name, p1Name, c2Name, outputName, c1IV, c2IV);
 			
 		} else {
 			System.out.println("Invalid mode try ECB or CBC");
@@ -49,4 +53,5 @@ public class startcracker {
 	
 
 }
+
 
