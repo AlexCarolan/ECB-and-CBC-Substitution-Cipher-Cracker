@@ -86,11 +86,10 @@ public class cbccracker {
 			
 		}
 		
-		System.out.println(plainTextBuilder.toString());
 		
 		//Output result to specified file
 		try {
-			PrintWriter writer = new PrintWriter(outputFileName, "UTF-8");
+			PrintWriter writer = new PrintWriter(outputFileName+".txt", "UTF-8");
 			writer.println(plainTextBuilder.toString());
 			writer.close();
 		} catch (IOException e) {
