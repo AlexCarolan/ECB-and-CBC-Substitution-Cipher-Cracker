@@ -37,8 +37,6 @@ public class cbccracker {
 		
 		char prevChar = (char)(IV_One + 97);
 		
-		
-		
 		//Itterate through the plain and cipher text
 		for (int i=0; i < plainText.length(); i++){
 			char pChar = plainText.charAt(i);        
@@ -64,16 +62,31 @@ public class cbccracker {
 			System.out.println(alphabet[i] + "->" + letterMap.get(alphabet[i]));
 		}
 		
-		/*
+		
 		//Create a string builder to assemble the plain text
 		StringBuilder plainTextBuilder = new StringBuilder(); 
 		
+		char prevCharDec = (char)(IV_Two + 97);
+		
 		//Build the string by decoding the cipher text
 		for (int i=0; i < secondCipherText.length(); i++){
-			char cChar = secondCipherText.charAt(i);        
-			plainTextBuilder.append(reverseLetterMap.get(cChar));
+			
+			char cChar = secondCipherText.charAt(i);
+			char modChar = reverseLetterMap.get(cChar);
+			int pChar = (modChar - (prevCharDec - 97));
+			
+			//If less than 'a' wrap back from 'z'
+			if (pChar < 97) {
+				pChar = ((pChar - 96) + 122);
+			}
+			       
+			prevCharDec = cChar;      
+			       
+			plainTextBuilder.append((char)pChar);
 			
 		}
+		
+		System.out.println(plainTextBuilder.toString());
 		
 		//Output result to specified file
 		try {
@@ -84,11 +97,12 @@ public class cbccracker {
 			System.out.println("Unable to output file");
 			System.out.println(e);
 		}
-			*/
+		
 	}
 	
 			
 		
 
 }
+
 
